@@ -3,7 +3,7 @@ public:
     int minimumArea(vector<vector<int>>& grid) {
         int n=grid.size();
         int m=grid[0].size();
-        int minRow = n, maxRow = -1, minCol = m, maxCol = -1;
+        int minRow = n, maxRow = 0, minCol = m, maxCol = 0;
         for(int i=0;i<n;i++){
             for(int j=0;j<m;j++){
                 if(grid[i][j]==1){
@@ -15,8 +15,7 @@ public:
 
             }
         }
-        
-        if (maxRow == -1) return 0; 
+         
         return (maxRow - minRow + 1) * (maxCol - minCol + 1);
     }
 };
