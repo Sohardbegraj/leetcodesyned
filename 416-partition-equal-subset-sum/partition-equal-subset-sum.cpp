@@ -1,18 +1,5 @@
 class Solution {
 public:
-    bool solve(vector<int>& nums,int sum,int n,vector<vector<int>>&memo){
-        if(sum==0)return true;
-        if(n==0)return false;
-        if(memo[n][sum]!=-1){
-            return memo[n][sum];
-        }
-        bool ex=solve(nums,sum,n-1,memo);
-        bool in=false;
-        if(nums[n-1]<=sum){
-            in=solve(nums,sum-nums[n-1],n-1,memo);
-        }
-        return memo[n][sum]=in||ex;
-    }
     bool canPartition(vector<int>& nums) {
         int n=nums.size();
         int sum=0;
@@ -23,7 +10,20 @@ public:
             return false;
         }
         int ans=sum/2;
-        vector<vector<int>>memo(n+1,vector<int>(ans+1,-1));
-        return solve(nums,ans,n,memo);
+        vector<vector<int>>dp(n+1,vector<int>(ans+1,false));
+        for (int i = 0; i <= n; i++) dp[i][0] = true;
+        for(int i=1;i<=n;i++){
+            for(int j=0;j<=ans;j++){
+                if(nums[i-1]<=j){
+                    dp[i][j]=dp[i-1][j-nums[i-1]]||dp[i-1][j];
+                }
+                else{
+                    dp[i][j]=dp[i-1][j];
+                }
+
+            }
+
+        }
+        return dp[n][ans];
     }
 };
