@@ -7,6 +7,11 @@ public:
             digits[i] = sum % 10;
             carry = sum / 10;
         }
+        // this will insert carry in front
+        // digits = {9, 9, 9}; carry = 1;
+
+        // digits = {1, 9, 9, 9}  →  1999 ✅
+
         if (carry) {
             digits.insert(digits.begin(), carry);
         }
